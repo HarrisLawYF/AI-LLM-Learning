@@ -1,9 +1,10 @@
 import json
 import os
-import random
 import dashscope
-from dashscope.api_entities.dashscope_response import Role
 
+#https://stackoverflow.com/questions/28918968/how-to-get-historical-data-for-currency-exchange-rates-via-yahoo-finance
+#https://www.fpmarkets.com/en-au/education/forex-trading/a-brief-guide-to-trading-the-aud-usd-currency-pair/#:~:text=Characteristics%20of%20the%20AUD%2FUSD%20Currency%20Pair&text=The%20pair%20tends%20to%20be,value%20of%20the%20Australian%20Dollar.
+#https://medium.com/google-cloud/boldly-prompting-a-practical-guide-to-system-instructions-and-agent-tools-2af7889f4cbb
 api_key = os.environ.get('DASHSCOPE_API_KEY')
 dashscope.api_key = api_key
 dashscope.base_http_api_url = 'https://dashscope-intl.aliyuncs.com/api/v1'
@@ -76,7 +77,7 @@ task = ("# Task \n" +
         "and stock name.\n##Note: A stop-loss price should always be 0.6 pip lower than limit-order price.\n" +
         "- Execute the buy order with price of stop-loss (in dollar), best price to create a limit-order (in dollar), and stock name. "
         "Trigger the tool execute_buy_order if user indicates a wish to proceed, buy, or execute the suggestion. Otherwise, if the user indicates a wish to stop, cancel, or discontinues the process (for example: 'Stop', 'I'll stop', 'Cancel'), "
-        "this process **must not** be executed. Instead, reply 'Thank you for the choosing us, have a nice day.'\n")
+        "this process **needs** to be cancelled and reply 'Thank you for the choosing us, have a nice day.'\n")
 repeated_instruction = role
 query="What stock should I buy today?"
 system_prompt=safety_guide_line + "\n" + role + "\n" + task + "\n" + repeated_instruction
